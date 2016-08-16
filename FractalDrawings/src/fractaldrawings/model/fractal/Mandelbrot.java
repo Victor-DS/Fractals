@@ -21,19 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package fractaldrawings;
+package fractaldrawings.model.fractal;
+
+import fractaldrawings.model.Pixel;
+import java.util.ArrayList;
 
 /**
  *
  * @author 41357205
  */
-public class FractalDrawings {
+public class Mandelbrot {
+    
+    private int height, width;
+    private ArrayList<Pixel> pixels;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public Mandelbrot(int height, int width) {
+        this.height = height;
+        this.width = width;
+        
+        pixels = new ArrayList<Pixel>();
     }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+    
     
 }

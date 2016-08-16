@@ -21,19 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package fractaldrawings;
+package fractaldrawings.model;
+
+import java.awt.Color;
 
 /**
  *
  * @author 41357205
  */
-public class FractalDrawings {
+public class Pixel {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    private int pixelX, pixelY;
+    private Color color;
+
+    public Pixel(int pixelX, int pixelY, Color color) {
+        this.pixelX = pixelX;
+        this.pixelY = pixelY;
+        this.color = color;
     }
-    
+
+    public int getPixelX() {
+        return pixelX;
+    }
+
+    public void setPixelX(int pixelX) {
+        this.pixelX = pixelX;
+    }
+
+    public int getPixelY() {
+        return pixelY;
+    }
+
+    public void setPixelY(int pixelY) {
+        this.pixelY = pixelY;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }
