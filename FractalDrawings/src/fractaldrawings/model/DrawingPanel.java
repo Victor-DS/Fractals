@@ -49,9 +49,11 @@ public class DrawingPanel extends JPanel {
         
         while(!pixels.isEmpty()) {
             currentPixel = pixels.get(0);
-
-            //TODO Draw point
             
+            g.setColor(currentPixel.getColor());
+            g.drawLine(currentPixel.getPixelX(), currentPixel.getPixelY(), 
+                    currentPixel.getPixelX(), currentPixel.getPixelY());
+
             pixels.remove(0);
         }
     }
