@@ -23,6 +23,7 @@
  */
 package fractaldrawings.model.fractal;
 
+import fractaldrawings.model.Fractal;
 import fractaldrawings.model.Pixel;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  *
  * @author 41357205
  */
-public class Mandelbrot {
+public class Mandelbrot implements Fractal {
     
     private int height, width;
     private ArrayList<Pixel> pixels;
@@ -56,6 +57,11 @@ public class Mandelbrot {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    @Override
+    public ArrayList<Pixel> getPixels() {
+        return this.pixels;
     }
     
     
