@@ -25,6 +25,7 @@ package fractaldrawings.model.fractal;
 
 import fractaldrawings.model.Fractal;
 import fractaldrawings.model.Pixel;
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -57,6 +58,51 @@ public class Mandelbrot implements Fractal {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+    
+    private void draw() {
+        if(!pixels.isEmpty()) pixels.clear();
+        
+        final boolean center = true;
+        
+        final int maxNumberOfIterations = 400;
+        final double zoom = !center ? .15 : 1;
+        final double xAlign = !center ? 200/2 : width/2;
+        final double yAlign = !center ? -1000 : height/2;
+        
+        final double xDelta = 4 / width * zoom;
+        final double yDelta = 4 / height * zoom;
+                
+        double x0, y0, x, y, xTemp;
+        int currentIteration = 0;
+        
+        for(int column = 0; column < width; column++) {
+            for(int line = 0; line < height; line++) {
+                x0 = (column - xAlign) * xDelta;
+                y0 = (line - yAlign) * yDelta;
+                
+                x = 0;
+                y = 0;
+                currentIteration = 0;
+                
+                while((x*x + y*y) <= 4 
+                        && currentIteration < maxNumberOfIterations) {
+                    xTemp = x*x - y*y + x0;
+                    
+                    y = 2*x*y + y0;
+                    x = xTemp;
+                    
+                    currentIteration++;
+                }
+                
+                if(currentIteration < maxNumberOfIterations) //Exterior
+                    pixels.add(new Pixel((int) x, (int) y, 
+                            new Color(0, ((currentIteration % 150) + 100), 0)));
+                else //Interior
+                    pixels.add(new Pixel((int) x, (int) y, 
+                            new Color(0, 0, 0)));
+            }
+        }
     }
 
     @Override
