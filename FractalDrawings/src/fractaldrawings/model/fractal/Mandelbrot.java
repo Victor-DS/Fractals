@@ -109,6 +109,13 @@ public class Mandelbrot implements Fractal {
     public ArrayList<Pixel> getPixels() {
         return this.pixels;
     }
+
+    @Override
+    public ArrayList<Pixel> generatePixels() {
+        draw();
+        
+        return getPixels();
+    }
     
     
 }
