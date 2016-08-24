@@ -31,6 +31,8 @@ import java.util.ArrayList;
  */
 public interface Fractal {
     
+    public ArrayList<Pixel> generatePixels();
+    
     public ArrayList<Pixel> getPixels();
     
 }
