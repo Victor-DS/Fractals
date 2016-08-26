@@ -39,6 +39,8 @@ public class DrawingPanel extends JPanel {
         super();
         
         this.fractal = fractal;
+        
+        repaint();
     }
 
     @Override
