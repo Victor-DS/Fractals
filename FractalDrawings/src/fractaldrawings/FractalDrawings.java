@@ -23,6 +23,12 @@
  */
 package fractaldrawings;
 
+import fractaldrawings.model.DrawingPanel;
+import fractaldrawings.model.Fractal;
+import fractaldrawings.model.fractal.Mandelbrot;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+
 /**
  *
  * @author 41357205
@@ -33,7 +39,19 @@ public class FractalDrawings {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Fractal mandelbrot = new Mandelbrot(500, 500);
+        mandelbrot.generatePixels();
+        
+        System.out.println(mandelbrot.getPixels().size());
+        
+        DrawingPanel drawing = new DrawingPanel(mandelbrot);
+        
+        JFrame frame = new JFrame("Mandelbrot");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(500, 500));
+        frame.getContentPane().add(drawing);
+        frame.pack();
+        frame.setVisible(true);
     }
     
 }
