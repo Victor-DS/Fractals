@@ -34,12 +34,18 @@ import java.util.ArrayList;
  */
 public class Mandelbrot implements Fractal {
     
-    private int height, width;
+    private int height, width, maxNumberOfIterations;
     private ArrayList<Pixel> pixels;
+    private double zoom, xAlign, yAlign;
 
     public Mandelbrot(int height, int width) {
         this.height = height;
         this.width = width;
+        
+        this.zoom = 1.0;
+        this.maxNumberOfIterations = 400;
+        this.xAlign = width/2;
+        this.yAlign = height/2;
         
         pixels = new ArrayList<Pixel>();
     }
@@ -60,18 +66,43 @@ public class Mandelbrot implements Fractal {
         this.width = width;
     }
     
-    private void draw() {
+    public int getMaxNumberOfIterations() {
+        return maxNumberOfIterations;
+    }
+
+    public void setMaxNumberOfIterations(int maxNumberOfIterations) {
+        this.maxNumberOfIterations = maxNumberOfIterations;
+    }
+
+    public double getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(double zoom) {
+        this.zoom = zoom;
+    }
+
+    public double getxAlign() {
+        return xAlign;
+    }
+
+    public void setxAlign(double xAlign) {
+        this.xAlign = xAlign;
+    }
+
+    public double getyAlign() {
+        return yAlign;
+    }
+
+    public void setyAlign(double yAlign) {
+        this.yAlign = yAlign;
+    }
+    
+        private void draw() {
         if(!pixels.isEmpty()) pixels.clear();
-        
-        final boolean center = true;
-        
-        final int maxNumberOfIterations = 400;
-        final double zoom = !center ? .15 : 1;
-        final double xAlign = !center ? 200/2 : width/2;
-        final double yAlign = !center ? -1000 : height/2;
-        
-        final double xDelta = 4 / width * zoom;
-        final double yDelta = 4 / height * zoom;
+                                
+        final double xDelta = 4.00 / width * zoom;
+        final double yDelta = 4.00 / height * zoom;
                 
         double x0, y0, x, y, xTemp;
         int currentIteration = 0;
@@ -96,14 +127,15 @@ public class Mandelbrot implements Fractal {
                 }
                 
                 if(currentIteration < maxNumberOfIterations) //Exterior
-                    pixels.add(new Pixel((int) x, (int) y, 
+                    pixels.add(new Pixel(line, column, 
                             new Color(0, ((currentIteration % 150) + 100), 0)));
                 else //Interior
-                    pixels.add(new Pixel((int) x, (int) y, 
+                    pixels.add(new Pixel(line, column, 
                             new Color(0, 0, 0)));
             }
         }
     }
+
 
     @Override
     public ArrayList<Pixel> getPixels() {
