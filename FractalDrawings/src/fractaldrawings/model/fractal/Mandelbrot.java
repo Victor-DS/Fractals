@@ -119,8 +119,8 @@ public class Mandelbrot implements Fractal {
         double x0, y0, x, y, xTemp;
         int currentIteration = 0;
         
-        for(int column = 0; column < width; column++) {
-            for(int line = 0; line < height; line++) {
+        for(int column = 0; column < pixels.length; column++) {
+            for(int line = 0; line < pixels[column].length; line++) {
                 x0 = (column - xAlign) * xDelta;
                 y0 = (line - yAlign) * yDelta;
                 
