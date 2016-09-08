@@ -24,9 +24,7 @@
 package fractaldrawings.model.fractal;
 
 import fractaldrawings.model.Fractal;
-import fractaldrawings.model.Pixel;
 import java.awt.Color;
-import java.util.ArrayList;
 
 /**
  *
@@ -35,19 +33,25 @@ import java.util.ArrayList;
 public class Mandelbrot implements Fractal {
     
     private int height, width, maxNumberOfIterations;
-    private ArrayList<Pixel> pixels;
+    private Color pixels[][], interiorColor;
     private double zoom, xAlign, yAlign;
 
-    public Mandelbrot(int height, int width) {
+    public Mandelbrot(int width, int height) 
+            throws IllegalArgumentException {
+        if(height <=0 || width <= 0)
+            throw new IllegalArgumentException("Invalid height or width!");
+        
         this.height = height;
         this.width = width;
         
-        this.zoom = 1.0;
+        this.zoom = 0.0;
         this.maxNumberOfIterations = 400;
         this.xAlign = width/2;
         this.yAlign = height/2;
         
-        pixels = new ArrayList<Pixel>();
+        interiorColor = new Color(0, 0, 0);
+        
+        pixels = new Color[width][height];
     }
 
     public int getHeight() {
@@ -97,12 +101,20 @@ public class Mandelbrot implements Fractal {
     public void setyAlign(double yAlign) {
         this.yAlign = yAlign;
     }
+
+    public Color getInteriorColor() {
+        return interiorColor;
+    }
+
+    public void setInteriorColor(Color interiorColor) {
+        this.interiorColor = interiorColor;
+    }
     
-        private void draw() {
-        if(!pixels.isEmpty()) pixels.clear();
+    private void draw() {        
+        final double realZoom = 100.0 / (100.0 + zoom);
                                 
-        final double xDelta = 4.00 / width * zoom;
-        final double yDelta = 4.00 / height * zoom;
+        final double xDelta = 4.00 / width * realZoom;
+        final double yDelta = 4.00 / height * realZoom;
                 
         double x0, y0, x, y, xTemp;
         int currentIteration = 0;
@@ -116,7 +128,7 @@ public class Mandelbrot implements Fractal {
                 y = 0;
                 currentIteration = 0;
                 
-                while((x*x + y*y) <= 4 
+                while((x*x + y*y) <= 4
                         && currentIteration < maxNumberOfIterations) {
                     xTemp = x*x - y*y + x0;
                     
@@ -127,23 +139,20 @@ public class Mandelbrot implements Fractal {
                 }
                 
                 if(currentIteration < maxNumberOfIterations) //Exterior
-                    pixels.add(new Pixel(line, column, 
-                            new Color(0, ((currentIteration % 150) + 100), 0)));
+                    pixels[line][column] = new Color(25, 25, ((currentIteration % 200) + 50));
                 else //Interior
-                    pixels.add(new Pixel(line, column, 
-                            new Color(0, 0, 0)));
+                    pixels[line][column] = interiorColor;
             }
         }
     }
 
-
     @Override
-    public ArrayList<Pixel> getPixels() {
+    public Color[][] getPixels() {
         return this.pixels;
     }
 
     @Override
-    public ArrayList<Pixel> generatePixels() {
+    public Color[][] generatePixels() {
         draw();
         
         return getPixels();

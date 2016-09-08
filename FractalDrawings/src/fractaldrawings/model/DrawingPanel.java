@@ -23,8 +23,8 @@
  */
 package fractaldrawings.model;
 
+import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -45,18 +45,13 @@ public class DrawingPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        ArrayList<Pixel> pixels = fractal.getPixels();
+        Color[][] pixels = fractal.getPixels();
         
-        Pixel currentPixel = null;
-        
-        while(!pixels.isEmpty()) {
-            currentPixel = pixels.get(0);
-            
-            g.setColor(currentPixel.getColor());
-            g.drawLine(currentPixel.getPixelX(), currentPixel.getPixelY(), 
-                    currentPixel.getPixelX(), currentPixel.getPixelY());
-
-            pixels.remove(0);
+        for(int line = 0; line < pixels.length; line++) {
+            for(int column = 0; column < pixels[line].length; column++) {
+                g.setColor(pixels[line][column]);
+                g.drawLine(line, column, line, column);
+            }
         }
     }
     

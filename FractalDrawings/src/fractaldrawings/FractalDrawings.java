@@ -26,6 +26,8 @@ package fractaldrawings;
 import fractaldrawings.model.DrawingPanel;
 import fractaldrawings.model.Fractal;
 import fractaldrawings.model.fractal.Mandelbrot;
+import fractaldrawings.model.fractal.Multibrot;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
@@ -39,16 +41,21 @@ public class FractalDrawings {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Fractal mandelbrot = new Mandelbrot(500, 500);
+        final int height = 500;
+        final int width = 500;
+        
+        Multibrot mandelbrot = new Multibrot(width, height, 2);
+        mandelbrot.setZoom(150); //200% zoom
+        mandelbrot.setInteriorColor(Color.BLACK);
+        mandelbrot.setxAlign(500); //Center X at 250 pixels
+        mandelbrot.setyAlign(300);
         mandelbrot.generatePixels();
-        
-        System.out.println(mandelbrot.getPixels().size());
-        
+                
         DrawingPanel drawing = new DrawingPanel(mandelbrot);
         
         JFrame frame = new JFrame("Mandelbrot");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(500, 500));
+        frame.setPreferredSize(new Dimension(width, height));
         frame.getContentPane().add(drawing);
         frame.pack();
         frame.setVisible(true);

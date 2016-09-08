@@ -23,7 +23,7 @@
  */
 package fractaldrawings.model;
 
-import java.util.ArrayList;
+import java.awt.Color;
 
 /**
  *
@@ -31,8 +31,8 @@ import java.util.ArrayList;
  */
 public interface Fractal {
     
-    public ArrayList<Pixel> generatePixels();
+    public Color[][] generatePixels();
     
-    public ArrayList<Pixel> getPixels();
+    public Color[][] getPixels();
     
 }
