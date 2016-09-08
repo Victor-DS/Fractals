@@ -31,7 +31,7 @@ public class Multibrot extends Mandelbrot{
     
     private int nMandelbrots;
 
-    public Multibrot(int nMandelbrots, int width, int height) 
+    public Multibrot(int width, int height, int nMandelbrots) 
             throws IllegalArgumentException {
         super(width, height);
         
