@@ -6,7 +6,14 @@ Just create a new instance of your desired set, and generate the pixels.
 
 Example:
 ```
-Mandelbrot mandelbrot = new Mandelbrot(width, height);
+Mandelbrot mandelbrot = new Mandelbrot.Builder(width, height)
+  .zoom(1050)
+  .maxNumberOfIterations(700)
+  .xAxis(600)
+  .yAxis(1000)
+  .interiorColor(Color.BLACK)
+  .build();
+        
 mandelbrot.generatePixels();
 ```
 
