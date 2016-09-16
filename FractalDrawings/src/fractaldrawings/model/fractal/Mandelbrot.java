@@ -158,5 +158,66 @@ public class Mandelbrot implements Fractal {
         return getPixels();
     }
     
+    public static class Builder {
+        
+        private Color interiorColor, pixels[][];
+        private int maxNumberOfIterations, height, width;
+        private double zoom, xAxis, yAxis;
+        
+        public Builder(final int width, final int height) 
+            throws IllegalArgumentException {
+            if(height <=0 || width <= 0)
+                throw new IllegalArgumentException("Invalid height or width!");
+
+            this.height = height;
+            this.width = width;
+
+            this.zoom = 0.0;
+            this.maxNumberOfIterations = 400;
+            this.xAxis = width/2;
+            this.yAxis = height/2;
+
+            interiorColor = new Color(0, 0, 0);
+
+            pixels = new Color[width][height];
+        }
+        
+        public Builder interiorColor(final Color color) {
+            this.interiorColor = color;
+            return this;
+        }
+        
+        public Builder maxNumberOfIterations(final int max) {
+            this.maxNumberOfIterations = max;
+            return this;
+        }
+        
+        public Builder zoom(final double zoom) {
+            this.zoom = zoom;
+            return this;
+        }
+        
+        public Builder xAxis(final double x) {
+            this.xAxis = x;
+            return this;
+        }
+        
+        public Builder yAxis(final double y) {
+            this.yAxis = y;
+            return this;
+        }
+        
+        public Mandelbrot build() {
+            Mandelbrot mandelbrot = new Mandelbrot(this.width, this.height);
+            mandelbrot.setInteriorColor(interiorColor);
+            mandelbrot.setMaxNumberOfIterations(maxNumberOfIterations);
+            mandelbrot.setxAlign(xAxis);
+            mandelbrot.setyAlign(yAxis);
+            mandelbrot.setZoom(zoom);
+            
+            return mandelbrot;
+        }
+        
+    }
     
 }
