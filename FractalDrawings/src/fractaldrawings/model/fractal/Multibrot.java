@@ -29,21 +29,60 @@ package fractaldrawings.model.fractal;
  */
 public class Multibrot extends Mandelbrot{
     
-    private int nMandelbrots;
+    private final String ILLEGAL_Z = "Z Value HAS to be either -1 "
+                    + "or bigger than 2. For Z = 2, use regular Mandelbrot.";
+    
+    private int zValue;
 
-    public Multibrot(int width, int height, int nMandelbrots) 
+    public Multibrot(int width, int height, int zValue) 
             throws IllegalArgumentException {
         super(width, height);
         
-        if(nMandelbrots <= 1) 
-            throw new IllegalArgumentException("You need at least two or more "
-                    + "Mandelbrots for a Multibrot!");
+        if(zValue != -1 && zValue <= 2) 
+            throw new IllegalArgumentException(ILLEGAL_Z);
         
-        this.nMandelbrots = nMandelbrots;
+        this.zValue = zValue;
     }
     
-    private boolean checkZValue(double x, double y) {
-        return (x*x + y*y) <= 4;
+    @Override
+    protected double getXDrawingValue(double x, double y, double x0) {
+        switch(zValue) {
+            case -1:
+                return 0.0;
+            case 3:
+                return x*x*x - 3*x*y*y + x0;
+            case 5:
+                return Math.pow(x, 5) - 10*x*x*x*y*y + 5*x*y*y*y*y + x0;
+            default:
+                return Math.pow((x*x+y*y), (zValue/2)) * 
+                        Math.cos(zValue * Math.atan2(y, x)) + x0;
+        }
     }
     
+    @Override
+    protected double getYDrawingValue(double x, double y, double y0) {
+        switch(zValue) {
+            case -1:
+                return 0.0;
+            case 3:
+                return 3*x*x*y - y*y*y + y0;
+            case 5:
+                return 5*Math.pow(x, 4)*y - 10*x*x*y*y*y + Math.pow(y, 5) + y0;
+            default:
+                return Math.pow((x*x+y*y), (zValue/2)) * 
+                        Math.sin(zValue * Math.atan2(y, x)) + y0;
+        }
+    }
+
+    public int getzValue() {
+        return zValue;
+    }
+
+    public void setzValue(int zValue) {
+        if(zValue != 1 && zValue <= 2)
+            throw new IllegalArgumentException(ILLEGAL_Z);
+        
+        this.zValue = zValue;
+    }
+ 
 }
