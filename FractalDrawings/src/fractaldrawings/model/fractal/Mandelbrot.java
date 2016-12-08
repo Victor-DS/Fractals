@@ -130,9 +130,9 @@ public class Mandelbrot implements Fractal {
                 
                 while((x*x + y*y) <= 4
                         && currentIteration < maxNumberOfIterations) {
-                    xTemp = x*x - y*y + x0;
+                    xTemp = getXDrawingValue(x, y, x0);
                     
-                    y = 2*x*y + y0;
+                    y = getYDrawingValue(x, y, y0);
                     x = xTemp;
                     
                     currentIteration++;
@@ -144,6 +144,14 @@ public class Mandelbrot implements Fractal {
                     pixels[line][column] = interiorColor;
             }
         }
+    }
+    
+    protected double getXDrawingValue(double x, double y, double x0) {
+        return x*x - y*y + x0;
+    }
+    
+    protected double getYDrawingValue(double x, double y, double y0) {
+        return 2*x*y + y0;
     }
 
     @Override
