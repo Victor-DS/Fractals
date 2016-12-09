@@ -25,12 +25,15 @@ package fractaldrawings.model.fractal;
 
 import fractaldrawings.model.Fractal;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 /**
  *
  * @author 41357205
  */
 public class Mandelbrot implements Fractal {
+    
+    private final double ONE_OVER_LOG2 = 1.4426950408889634;
     
     private int height, width, maxNumberOfIterations;
     private Color pixels[][], interiorColor;
@@ -139,11 +142,15 @@ public class Mandelbrot implements Fractal {
                 }
                 
                 if(currentIteration < maxNumberOfIterations) //Exterior
-                    pixels[line][column] = new Color(25, 25, ((currentIteration % 200) + 50));
+                    pixels[column][line] = getExteriorColor(currentIteration);
                 else //Interior
-                    pixels[line][column] = interiorColor;
+                    pixels[column][line] = interiorColor;
             }
         }
+    }
+    
+    private Color getExteriorColor(int iteration) {
+        return new Color((200 % iteration) + 50, 0, 0);
     }
     
     protected double getXDrawingValue(double x, double y, double x0) {
@@ -164,6 +171,17 @@ public class Mandelbrot implements Fractal {
         draw();
         
         return getPixels();
+    }
+    
+    public BufferedImage getImage() {
+        BufferedImage bImage = new BufferedImage(pixels.length, 
+                pixels[0].length, BufferedImage.TYPE_INT_ARGB);
+        
+        for(int x = 0; x < pixels.length; x++)
+            for(int y = 0; y < pixels[0].length; y++)
+                bImage.setRGB(x, y, pixels[x][y].getRGB());
+        
+        return bImage;
     }
     
     public static class Builder {
