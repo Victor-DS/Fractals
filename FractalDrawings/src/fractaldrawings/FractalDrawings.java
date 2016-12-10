@@ -23,13 +23,15 @@
  */
 package fractaldrawings;
 
-import fractaldrawings.model.DrawingPanel;
-import fractaldrawings.model.Fractal;
 import fractaldrawings.model.fractal.Mandelbrot;
 import fractaldrawings.model.fractal.Multibrot;
 import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JFrame;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -41,24 +43,31 @@ public class FractalDrawings {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        final int height = 500;
-        final int width = 500;
+        final int height = 720;
+        final int width = 720;
         
-        Multibrot mandelbrot = new Multibrot(width, height, 2);
-        mandelbrot.setZoom(150); //200% zoom
-        mandelbrot.setInteriorColor(Color.BLACK);
-        mandelbrot.setxAlign(500); //Center X at 250 pixels
-        mandelbrot.setyAlign(300);
-        mandelbrot.generatePixels();
-                
-        DrawingPanel drawing = new DrawingPanel(mandelbrot);
+        Multibrot multibrot = new Multibrot(width, height, 4);
+        multibrot.setZoom(100);
+        multibrot.generatePixels();
         
-        JFrame frame = new JFrame("Mandelbrot");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(width, height));
-        frame.getContentPane().add(drawing);
-        frame.pack();
-        frame.setVisible(true);
+        //Save Fractal image...
+        File output = new File("samples/sample_"+ new Date().getTime() +".png");
+        try {
+            ImageIO.write(multibrot.getImage(), "png", output);
+        } catch (IOException ex) {
+            Logger.getLogger(FractalDrawings.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Show Fractal in a Panel...
+//        DrawingPanel drawing = new DrawingPanel(mandelbrot);
+        
+//        JFrame frame = new JFrame("Mandelbrot");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setPreferredSize(new Dimension(width, height));
+//        frame.getContentPane().add(drawing);
+//        frame.pack();
+//        frame.setVisible(true);
+
     }
     
 }
