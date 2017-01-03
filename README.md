@@ -5,7 +5,7 @@ Implementations of Fractal drawing algorithms in Java.
 Just create a new instance of your desired set, and generate the pixels.
 
 Example:
-```
+```java
 Mandelbrot mandelbrot = new Mandelbrot.Builder(width, height)
   .zoom(1050)
   .maxNumberOfIterations(700)
