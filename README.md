@@ -20,7 +20,7 @@ mandelbrot.generatePixels();
 That will return you a 2D array of ```Colors```, one for each pixel of your desired height and width area, so you can paint it wherever you'd like.
 
 ## Samples
-<img src="/FractalDrawings/samples/sample_1481332610966.png?raw=true" width="250" height="250" alt="Mandelbrot with zoom" /><img src="/FractalDrawings/samples/sample_1481332659345.png?raw=true" width="250" height="250" alt="Mandelbrot" /><img src="/FractalDrawings/samples/sample_1481332980720.png?raw=true" width="250" height="250" alt="Multibrot" />
+<img src="/samples/sample_1481332610966.png?raw=true" width="250" height="250" alt="Mandelbrot with zoom" /><img src="/samples/sample_1481332659345.png?raw=true" width="250" height="250" alt="Mandelbrot" /><img src="/samples/sample_1481332980720.png?raw=true" width="250" height="250" alt="Multibrot" />
 
 ## LICENSE
 ```
